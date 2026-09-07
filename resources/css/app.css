@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Manrope:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+
+/*
+| Design tokens — all values taken directly from the Figma file (1440px frame).
+| Markup should only ever reference these tokens, never raw values.
+*/
+@theme {
+    /* ---------------------------------------------------------------
+    | Typefaces
+    | Manrope = body/UI copy · Bricolage Grotesque = headings & numbers
+    --------------------------------------------------------------- */
+    --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+
+    /* ---------------------------------------------------------------
+    | Palette
+    --------------------------------------------------------------- */
+    --color-navy: #1a1f2e; /* headings, dark section backgrounds */
+    --color-primary: #f08348; /* brand orange — CTAs, accents, highlights */
+    --color-body: #6b6b78; /* paragraph copy */
+    --color-cream: #fdf6ec; /* tinted section backgrounds */
+
+    /* ---------------------------------------------------------------
+    | Type scale — each token bundles size + line-height + tracking
+    | so a single utility (e.g. `text-heading`) matches Figma exactly.
+    --------------------------------------------------------------- */
+
+    /* 160px — decorative "ghost" number watermark (Impact section) */
+    --text-ghost: 160px;
+    --text-ghost--letter-spacing: -6px;
+
+    /* 72px — hero headline ("Share The Joy of Giving") */
+    --text-hero: 4.5rem;
+    --text-hero--line-height: 78px;
+    --text-hero--letter-spacing: -2.5px;
+
+    /* 54px — primary section headings */
+    --text-heading: 54px;
+    --text-heading--line-height: 53px;
+    --text-heading--letter-spacing: -2.16px;
+
+    /* 48px — secondary section headings (Impact) */
+    --text-heading-sm: 48px;
+    --text-heading-sm--letter-spacing: -2.163px;
+
+    /* 40px — supporting stat figures (Impact row) */
+    --text-stat: 40px;
+    --text-stat--letter-spacing: -1.5px;
+
+    /* 32px — full-width intro band paragraph */
+    --text-band: 32px;
+    --text-band--line-height: 49px;
+
+    /* 32px — Mission / Vision / Guides statements */
+    --text-value: 32px;
+    --text-value--line-height: 39px;
+    --text-value--letter-spacing: -0.81px;
+
+    /* 28px — stat figures on dark backgrounds */
+    --text-stat-dark: 28px;
+    --text-stat-dark--letter-spacing: -0.8px;
+
+    /* 11px — section eyebrow labels ("OUR STORY") */
+    --text-eyebrow: 11px;
+    --text-eyebrow--letter-spacing: 3.85px;
+
+    /* 9px — micro labels (event date badges, category tags) */
+    --text-micro: 9px;
+    --text-micro--letter-spacing: 1.5px;
+
+    /*
+    | Accessibility: Tailwind ships `text-sm` at 1.43 and `text-xs` at 1.33
+    | line-height, both under the WCAG 1.5 guideline. Raised here at the
+    | theme level so all body copy inherits it — no per-component classes.
+    */
+    --text-sm--line-height: 1.6;
+    --text-xs--line-height: 1.6;
+    --text-base--line-height: 1.6;
+
+    /* Letter-spacing for uppercase button labels */
+    --tracking-cta: 2.4px;
+
+    /* ---------------------------------------------------------------
+    | Layout spacing
+    | `gutter*`    = page side padding
+    | `section-y*` = vertical padding between major sections
+    | `stack-*`    = vertical/horizontal rhythm between elements
+    --------------------------------------------------------------- */
+    --spacing-gutter: 1.5rem; /* 24px — mobile side padding */
+    --spacing-gutter-lg: 5rem; /* 80px — desktop side padding */
+    --spacing-section-y: 6rem; /* 96px — mobile section padding */
+    --spacing-section-y-lg: 8rem; /* 128px — desktop section padding */
+
+    --spacing-stack-xs: 0.75rem; /* 12px — icon/label pairs, tight gaps */
+    --spacing-stack-sm: 1.25rem; /* 20px — paragraph stacks */
+    --spacing-stack-md: 2.5rem; /* 40px — button offsets, column gaps */
+    --spacing-stack-lg: 5rem; /* 80px — gaps between content blocks */
+
+    --spacing-logo: 134px; /* header logo, fixed per Figma */
+
+    /* ---------------------------------------------------------------
+    | Widths
+    --------------------------------------------------------------- */
+    --container-copy: 790px; /* Mission/Vision/Guides text column */
+
+    /* ---------------------------------------------------------------
+    | Effects
+    --------------------------------------------------------------- */
+    --radius-pill: 9999px;
+    --shadow-cta: 0 10px 7.5px rgba(240, 131, 72, 0.3), 0 4px 3px rgba(240, 131, 72, 0.3);
+    --shadow-cta-lg: 0 25px 25px rgba(240, 131, 72, 0.4);
+
+    /* Partner logo strip — scrolls one full copy, then loops seamlessly */
+    --animate-marquee: marquee 40s linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
