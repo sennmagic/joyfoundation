@@ -28,6 +28,14 @@
     --color-body: #6b6b78; /* paragraph copy */
     --color-cream: #fdf6ec; /* tinted section backgrounds */
 
+    /*
+    | Secondary/muted text — eyebrows, captions, side notes.
+    | Use this instead of ad-hoc `text-navy/40`-style opacities: those
+    | measured 2.4–3.5:1 and failed WCAG AA. This is 5.8:1 on cream,
+    | 6.2:1 on white.
+    */
+    --color-muted: #5e6067;
+
     /* ---------------------------------------------------------------
     | Type scale — each token bundles size + line-height + tracking
     | so a single utility (e.g. `text-heading`) matches Figma exactly.
@@ -77,6 +85,14 @@
     --text-micro--letter-spacing: 1.5px;
 
     /*
+    | 18px — body/description copy. Deliberately larger than Figma's
+    | 13–16px for readability. Kept as its own token so descriptions
+    | scale independently of labels and badges (which use text-sm/xs).
+    */
+    --text-description: 18px;
+    --text-description--line-height: 1.6;
+
+    /*
     | Accessibility: Tailwind ships `text-sm` at 1.43 and `text-xs` at 1.33
     | line-height, both under the WCAG 1.5 guideline. Raised here at the
     | theme level so all body copy inherits it — no per-component classes.
@@ -120,6 +136,138 @@
 
     /* Partner logo strip — scrolls one full copy, then loops seamlessly */
     --animate-marquee: marquee 40s linear infinite;
+
+}
+
+/*
+| Hero wave divider — scroll-driven, not time-driven. The motion is tied
+| to scroll position via `animation-timeline`, so the wave moves only
+| while the user scrolls and settles the moment they stop.
+|
+| `view()` maps progress to the element's own pass through the viewport,
+| so the full motion plays while the wave is actually visible.
+|
+| Travel distances are deliberately small — the track holds two copies
+| (200% wide), so drifting 12% never runs past the end, and bob only
+| moves downward so the wave can't lift off the orange band and expose
+| a seam.
+*/
+@keyframes wave-drift {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-6%);
+    }
+}
+
+@keyframes wave-bob {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/*
+| Generic scroll reveal — fades and lifts an element as it scrolls into
+| view, then settles. Reusable on any block that isn't inside an
+| `overflow-hidden` ancestor (see the wave note below for why that
+| matters). Driven by `view()`, so it tracks the element's own pass
+| through the viewport rather than a timer.
+*/
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+| Scroll-driven scale — element is smallest at the edges of the viewport
+| and reaches full size as it passes through the middle, so it swells and
+| settles as the user scrolls. Apply to a wrapper, not the visual element
+| itself, so any absolutely-positioned children (badges, labels) scale
+| along with it instead of detaching.
+*/
+@keyframes scroll-scale {
+    0% {
+        transform: scale(0.82);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.82);
+    }
+}
+
+@supports (animation-timeline: view()) {
+    .rise-in {
+        animation: rise-in linear both;
+    }
+
+    .scroll-scale {
+        animation: scroll-scale linear both;
+    }
+
+    /* Must come after the shorthand — it resets these longhands */
+    .rise-in {
+        animation-timeline: view();
+        animation-range: entry 15% cover 45%;
+    }
+
+    .scroll-scale {
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+    }
+}
+
+@supports (animation-timeline: scroll()) {
+    /*
+    | Anchored to the document scroller explicitly, NOT `view()`: the wave
+    | sits inside two `overflow-hidden` boxes (its own clip wrapper and the
+    | hero section), and `view()` binds to the nearest scroll container —
+    | which those are. That froze the timeline. `scroll(root)` skips past
+    | them to the page scroller.
+    |
+    | The range is capped to the hero's height so the whole motion plays
+    | across the stretch of scrolling where the wave is actually on screen.
+    */
+    .wave-drift {
+        animation: wave-drift linear both;
+    }
+
+    .wave-bob {
+        animation: wave-bob linear both;
+    }
+
+    /* Must come after the `animation` shorthand — it resets these longhands */
+    .wave-drift,
+    .wave-bob {
+        animation-timeline: scroll(root block);
+        animation-range: 0 800px;
+    }
+}
+
+/* Respect users who ask for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .wave-drift,
+    .wave-bob,
+    .rise-in {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }
 
 @keyframes marquee {

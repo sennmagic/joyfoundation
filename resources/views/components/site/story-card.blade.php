@@ -21,7 +21,7 @@
 
         <div class="mt-stack-sm space-y-stack-sm">
             @foreach ($paragraphs as $paragraph)
-                <p class="text-sm leading-relaxed text-body">{{ $paragraph }}</p>
+                <p class="text-description text-body">{{ $paragraph }}</p>
             @endforeach
         </div>
 

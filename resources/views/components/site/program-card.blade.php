@@ -13,7 +13,7 @@
 
     <p class="mt-stack-xs text-xs font-semibold tracking-wide text-primary uppercase">{{ $category }}</p>
     <h3 class="mt-stack-xs font-heading text-lg font-semibold text-navy">{{ $title }}</h3>
-    <p class="mt-stack-xs max-w-xs text-sm text-navy/70">{{ $description }}</p>
+    <p class="mt-stack-xs max-w-xs text-description text-navy/70">{{ $description }}</p>
 
     <a href="#" class="mt-stack-sm inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-navy/80">
         Learn More <span class="text-primary">&rarr;</span>

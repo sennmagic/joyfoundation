@@ -46,7 +46,7 @@
     </div>
 
     <div class="space-y-stack-xs bg-white px-7 pt-6 pb-7">
-        <p class="text-sm text-navy/90">{{ $description }}</p>
+        <p class="text-description text-navy/90">{{ $description }}</p>
 
         <div class="border-t border-navy/10 pt-stack-xs">
             <p class="text-xs text-navy/65">{{ implode(' · ', $tags) }}</p>

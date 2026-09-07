@@ -32,7 +32,7 @@
         <p class="mt-stack-sm text-xs text-white/75">{{ $location }}</p>
 
         <div class="mt-stack-sm border-t border-white/10 pt-stack-sm">
-            <p class="text-sm leading-relaxed text-white/90">{{ $description }}</p>
+            <p class="text-description text-white/90">{{ $description }}</p>
         </div>
 
         <p class="mt-stack-sm text-xs text-primary/80">{{ implode(' · ', $tags) }}</p>

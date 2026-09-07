@@ -30,11 +30,18 @@
                 </div>
             </div>
 
-            <img src="{{ asset('images/site/wave-divider.svg') }}" alt="" class="absolute inset-x-0 bottom-0 h-24 w-full">
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 overflow-hidden" aria-hidden="true">
+                <div class="wave-bob h-full">
+                    <div class="wave-drift flex h-full w-max">
+                        <img src="{{ asset('images/site/wave-divider.svg') }}" alt="" class="h-full w-screen shrink-0">
+                        <img src="{{ asset('images/site/wave-divider.svg') }}" alt="" class="h-full w-screen shrink-0">
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="bg-primary px-gutter py-16 text-center">
-            <p class="mx-auto max-w-4xl text-xl leading-relaxed text-white sm:text-band">
+            <p class="rise-in mx-auto max-w-4xl text-xl leading-relaxed text-white sm:text-band">
                 {{ $content['intro']['text'] }}
             </p>
         </section>
@@ -72,7 +79,7 @@
 
                     <div class="mt-stack-sm space-y-stack-sm">
                         @foreach ($content['story']['paragraphs'] as $paragraph)
-                            <p class="text-base leading-relaxed text-body">{{ $paragraph }}</p>
+                            <p class="text-description text-body">{{ $paragraph }}</p>
                         @endforeach
                     </div>
 
@@ -97,13 +104,13 @@
                         </h2>
                     </div>
 
-                    <p class="max-w-xs text-base leading-relaxed text-body">
+                    <p class="max-w-xs text-description text-body">
                         {{ $content['mission_section']['intro'] }}
                     </p>
                 </div>
 
                 <div class="mt-stack-lg space-y-stack-lg">
-                    <div class="relative flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
+                    <div class="rise-in relative flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
                         <span class="pointer-events-none absolute -top-10 left-0 hidden font-heading text-9xl leading-none text-primary/25 xl:block" aria-hidden="true">&ldquo;</span>
 
                         <p class="w-48 shrink-0 font-heading text-sm font-medium text-primary">— {{ $content['mission_section']['mission']['label'] }}</p>
@@ -113,7 +120,7 @@
                         />
                     </div>
 
-                    <div class="flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
+                    <div class="rise-in flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
                         <p class="w-48 shrink-0 font-heading text-sm font-medium text-primary">— {{ $content['mission_section']['vision']['label'] }}</p>
                         <x-site.rich-text
                             :segments="$content['mission_section']['vision']['segments']"
@@ -121,7 +128,7 @@
                         />
                     </div>
 
-                    <div class="flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
+                    <div class="rise-in flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
                         <p class="w-48 shrink-0 font-heading text-sm font-medium text-primary">{{ $content['mission_section']['guides']['label'] }}</p>
                         <x-site.rich-text
                             :segments="$content['mission_section']['guides']['segments']"
@@ -136,7 +143,7 @@
             <div class="mx-auto max-w-7xl border-t border-navy/10 px-gutter pt-stack-lg pb-stack-md sm:px-gutter-lg">
                 <div class="flex flex-col gap-stack-sm xl:flex-row xl:items-end xl:justify-between">
                     <div>
-                        <x-site.section-eyebrow :label="$content['impact']['eyebrow']" label-color="text-navy/45" />
+                        <x-site.section-eyebrow :label="$content['impact']['eyebrow']" />
 
                         <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading-sm">
                             {{ $content['impact']['heading']['line1'] }}<br>
@@ -144,7 +151,7 @@
                         </h2>
                     </div>
 
-                    <div class="w-96 max-w-full text-sm font-light text-navy/40">
+                    <div class="w-96 max-w-full text-description text-muted">
                         @foreach ($content['impact']['note'] as $line)
                             <p>{{ $line }}</p>
                         @endforeach
@@ -160,7 +167,7 @@
                         <p class="relative font-heading text-6xl font-semibold tracking-tight text-navy sm:text-7xl">{{ $content['impact']['headline_stat']['value'] }}</p>
                         <span class="mt-stack-xs block h-1 w-12 rounded-full bg-primary"></span>
 
-                        <div class="mt-stack-xs w-96 max-w-full text-sm text-navy/50">
+                        <div class="mt-stack-xs w-96 max-w-full text-sm text-muted">
                             @foreach ($content['impact']['headline_stat']['caption'] as $line)
                                 <p>{{ $line }}</p>
                             @endforeach
@@ -201,13 +208,13 @@
 
         <section class="bg-white px-gutter py-section-y sm:px-gutter-lg sm:py-section-y-lg">
             <div class="mx-auto max-w-7xl">
-                <x-site.section-eyebrow :label="$content['programs']['eyebrow']" label-color="text-navy/45" />
+                <x-site.section-eyebrow :label="$content['programs']['eyebrow']" />
 
                 <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
                     {{ $content['programs']['heading_prefix'] }}<span class="font-light text-primary">{{ $content['programs']['heading_highlight'] }}</span>{{ $content['programs']['heading_suffix'] }}
                 </h2>
 
-                <p class="mt-stack-xs text-base text-body">{{ $content['programs']['subtext'] }}</p>
+                <p class="mt-stack-xs text-description text-body">{{ $content['programs']['subtext'] }}</p>
 
                 <div class="mt-stack-lg grid grid-cols-1 gap-stack-lg border-t border-navy/10 pt-stack-lg xl:grid-cols-6">
                     @foreach ($content['programs']['items'] as $index => $program)
@@ -236,7 +243,7 @@
                         </h2>
                     </div>
 
-                    <p class="w-96 max-w-full text-sm leading-relaxed text-white/90">
+                    <p class="w-96 max-w-full text-description text-white/90">
                         {{ $content['long_term_community']['intro'] }}
                     </p>
                 </div>
@@ -264,7 +271,7 @@
             <div class="mx-auto max-w-7xl border-t border-navy/10 pt-stack-lg">
                 <div class="flex flex-col gap-stack-sm xl:flex-row xl:items-start xl:justify-between">
                     <div>
-                        <x-site.section-eyebrow :label="$content['achievements']['eyebrow']" label-color="text-navy/45" />
+                        <x-site.section-eyebrow :label="$content['achievements']['eyebrow']" />
 
                         <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
                             {{ $content['achievements']['heading_prefix'] }}<span class="font-light text-primary">{{ $content['achievements']['heading_highlight'] }}</span><br>
@@ -272,7 +279,7 @@
                         </h2>
                     </div>
 
-                    <p class="w-96 max-w-full text-sm leading-relaxed text-body">
+                    <p class="w-96 max-w-full text-description text-body">
                         {{ $content['achievements']['subtext'] }}
                     </p>
                 </div>
@@ -303,14 +310,14 @@
             <div class="mx-auto max-w-7xl px-gutter sm:px-gutter-lg">
                 <div class="flex flex-col gap-stack-sm xl:flex-row xl:items-start xl:justify-between">
                     <div>
-                        <x-site.section-eyebrow :label="$content['partners']['eyebrow']" label-color="text-navy/45" />
+                        <x-site.section-eyebrow :label="$content['partners']['eyebrow']" />
 
                         <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy">
                             {{ $content['partners']['heading_prefix'] }}<span class="font-light text-primary">{{ $content['partners']['heading_highlight'] }}</span>.
                         </h2>
                     </div>
 
-                    <div class="w-80 max-w-full text-sm leading-relaxed text-body">
+                    <div class="w-80 max-w-full text-description text-body">
                         @foreach ($content['partners']['note'] as $line)
                             <p>{{ $line }}</p>
                         @endforeach
@@ -325,13 +332,13 @@
 
         <section class="bg-white px-gutter py-section-y sm:px-gutter-lg sm:py-section-y-lg">
             <div class="mx-auto max-w-7xl">
-                <x-site.section-eyebrow :label="$content['stories']['eyebrow']" label-color="text-navy/45" />
+                <x-site.section-eyebrow :label="$content['stories']['eyebrow']" />
 
                 <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
                     {{ $content['stories']['heading_prefix'] }}<span class="font-light text-primary">{{ $content['stories']['heading_highlight'] }}</span>{{ $content['stories']['heading_suffix'] }}
                 </h2>
 
-                <p class="mt-stack-xs text-base text-body">{{ $content['stories']['subtext'] }}</p>
+                <p class="mt-stack-xs text-description text-body">{{ $content['stories']['subtext'] }}</p>
 
                 @php $featuredStory = $content['stories']['items'][0]; @endphp
 
@@ -363,7 +370,7 @@
                     <span class="mx-auto block h-1 w-10 rounded-full bg-primary"></span>
                     <x-site.rich-text
                         :segments="$content['stories']['closing']"
-                        class="mt-stack-sm text-xl font-light text-navy/55"
+                        class="mt-stack-sm text-xl text-muted"
                     />
                 </div>
             </div>
@@ -371,13 +378,13 @@
 
         <section class="bg-white px-gutter py-section-y sm:px-gutter-lg sm:py-section-y-lg">
             <div class="mx-auto max-w-7xl">
-                <x-site.section-eyebrow :label="$content['events']['eyebrow']" label-color="text-navy/45" />
+                <x-site.section-eyebrow :label="$content['events']['eyebrow']" />
 
                 <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
                     {{ $content['events']['heading_prefix'] }}<span class="font-light text-primary">{{ $content['events']['heading_highlight'] }}</span>{{ $content['events']['heading_suffix'] }}
                 </h2>
 
-                <p class="mt-stack-sm max-w-2xl text-base leading-relaxed text-body">{{ $content['events']['subtext'] }}</p>
+                <p class="mt-stack-sm max-w-2xl text-description text-body">{{ $content['events']['subtext'] }}</p>
 
                 <p class="mt-stack-md text-micro font-medium text-primary uppercase">{{ $content['events']['concluded_label'] }}</p>
 
@@ -398,7 +405,7 @@
                     <div class="p-stack-md">
                         <h3 class="font-heading text-2xl font-semibold tracking-tight text-white">{{ $content['events']['featured']['title'] }}</h3>
                         <p class="mt-stack-sm text-xs font-medium tracking-widest text-primary uppercase">{{ $content['events']['featured']['date'] }}</p>
-                        <p class="mt-stack-xs text-sm leading-relaxed text-white/60">{{ $content['events']['featured']['description'] }}</p>
+                        <p class="mt-stack-xs text-description text-white/60">{{ $content['events']['featured']['description'] }}</p>
 
                         <div class="mt-stack-md flex flex-wrap gap-stack-xs">
                             @foreach ($content['events']['featured']['stats'] as $stat)

@@ -1,4 +1,4 @@
-@props(['label', 'labelColor' => 'text-navy/70'])
+@props(['label', 'labelColor' => 'text-muted'])
 
 <div {{ $attributes->merge(['class' => 'flex items-center gap-stack-xs']) }}>
     <img src="{{ asset('images/site/icon-smiley.svg') }}" alt="" class="size-5">

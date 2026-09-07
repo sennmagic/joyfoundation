@@ -12,7 +12,7 @@
 @php
     $colors = ['navy' => 'text-navy', 'primary' => 'text-primary', 'white' => 'text-white'];
     $weights = ['semibold' => 'font-semibold', 'light' => 'font-light'];
-    $captionColors = ['light' => 'text-navy/45', 'dark' => 'text-white/85'];
+    $captionColors = ['light' => 'text-muted', 'dark' => 'text-white/85'];
 @endphp
 
 <div {{ $attributes }}>
