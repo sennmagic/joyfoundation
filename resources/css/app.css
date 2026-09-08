@@ -11,6 +11,19 @@
 | Design tokens — all values taken directly from the Figma file (1440px frame).
 | Markup should only ever reference these tokens, never raw values.
 */
+/*
+| Safety net against horizontal scroll on mobile. Several elements on
+| this page use transforms (scroll-driven animations, decorative
+| offsets like the Our Story polaroid) that can push a box's edge past
+| the viewport without necessarily being a layout bug — clipping it here
+| means one stray transform can never open up page-wide horizontal
+| scroll, regardless of what gets added later.
+*/
+html,
+body {
+    overflow-x: hidden;
+}
+
 @theme {
     /* ---------------------------------------------------------------
     | Typefaces
@@ -317,24 +330,8 @@
         animation: rise-in linear both;
     }
 
-    .slide-in-left {
-        animation: slide-in-left linear both;
-    }
-
-    .slide-in-right {
-        animation: slide-in-right linear both;
-    }
-
     .rise-in-solid {
         animation: rise-in-solid linear both;
-    }
-
-    .slide-in-left-solid {
-        animation: slide-in-left-solid linear both;
-    }
-
-    .slide-in-right-solid {
-        animation: slide-in-right-solid linear both;
     }
 
     .scroll-scale {
@@ -347,11 +344,7 @@
 
     /* Must come after the shorthand — it resets these longhands */
     .rise-in,
-    .slide-in-left,
-    .slide-in-right,
-    .rise-in-solid,
-    .slide-in-left-solid,
-    .slide-in-right-solid {
+    .rise-in-solid {
         animation-timeline: view();
         animation-range: entry 15% cover 45%;
     }
@@ -360,6 +353,42 @@
     .ring-fill circle {
         animation-timeline: view();
         animation-range: cover 0% cover 100%;
+    }
+
+    /*
+    | Slide-in only makes sense once the layout is actually side-by-side
+    | (xl: 1280px, matching initiative.blade.php's xl:flex-row). Below
+    | that breakpoint the rows stack full-width via flex-col, so a
+    | horizontal slide is both semantically wrong (nothing to converge
+    | toward) and was overflowing the page horizontally on mobile — a
+    | fixed 40px offset is proportionally much larger against a narrow
+    | column than a desktop one. Keeping these unanimated below xl fixes
+    | both problems at once.
+    */
+    @media (min-width: 1280px) {
+        .slide-in-left {
+            animation: slide-in-left linear both;
+        }
+
+        .slide-in-right {
+            animation: slide-in-right linear both;
+        }
+
+        .slide-in-left-solid {
+            animation: slide-in-left-solid linear both;
+        }
+
+        .slide-in-right-solid {
+            animation: slide-in-right-solid linear both;
+        }
+
+        .slide-in-left,
+        .slide-in-right,
+        .slide-in-left-solid,
+        .slide-in-right-solid {
+            animation-timeline: view();
+            animation-range: entry 15% cover 45%;
+        }
     }
 }
 

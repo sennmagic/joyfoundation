@@ -48,7 +48,7 @@
 
         <section class="px-gutter py-section-y sm:px-gutter-lg sm:py-section-y-lg">
             <div class="mx-auto grid max-w-7xl items-center gap-stack-lg lg:grid-cols-2">
-                <div class="scroll-scale relative mx-auto w-96 max-w-full">
+                <div class="scroll-scale relative mx-auto w-full max-w-96">
                     <x-site.image
                         :src="asset($content['story']['photo'])"
                         alt="JOY Foundation volunteers at work"
@@ -151,7 +151,7 @@
                         </h2>
                     </div>
 
-                    <div class="w-96 max-w-full text-description text-muted">
+                    <div class="w-full max-w-96 text-description text-muted">
                         @foreach ($content['impact']['note'] as $line)
                             <p>{{ $line }}</p>
                         @endforeach
@@ -167,7 +167,7 @@
                         <p class="relative font-heading text-6xl font-semibold tracking-tight text-navy sm:text-7xl"><x-site.count-up :value="$content['impact']['headline_stat']['value']" /></p>
                         <span class="mt-stack-xs block h-1 w-12 rounded-full bg-primary"></span>
 
-                        <div class="mt-stack-xs w-96 max-w-full text-sm text-muted">
+                        <div class="mt-stack-xs w-full max-w-96 text-sm text-muted">
                             @foreach ($content['impact']['headline_stat']['caption'] as $line)
                                 <p>{{ $line }}</p>
                             @endforeach
@@ -243,7 +243,7 @@
                         </h2>
                     </div>
 
-                    <p class="w-96 max-w-full text-description text-white/90">
+                    <p class="w-full max-w-96 text-description text-white/90">
                         {{ $content['long_term_community']['intro'] }}
                     </p>
                 </div>
@@ -279,7 +279,7 @@
                         </h2>
                     </div>
 
-                    <p class="w-96 max-w-full text-description text-body">
+                    <p class="w-full max-w-96 text-description text-body">
                         {{ $content['achievements']['subtext'] }}
                     </p>
                 </div>
@@ -317,7 +317,7 @@
                         </h2>
                     </div>
 
-                    <div class="w-80 max-w-full text-description text-body">
+                    <div class="w-full max-w-80 text-description text-body">
                         @foreach ($content['partners']['note'] as $line)
                             <p>{{ $line }}</p>
                         @endforeach
