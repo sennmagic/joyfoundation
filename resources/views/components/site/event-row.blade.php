@@ -1,6 +1,6 @@
 @props(['month', 'day', 'category', 'title', 'location'])
 
-<div {{ $attributes->merge(['class' => 'flex items-center gap-stack-sm']) }}>
+<div {{ $attributes->merge(['class' => 'rise-in flex items-center gap-stack-sm']) }}>
     <div class="w-14 shrink-0 overflow-hidden rounded-xl bg-cream text-center">
         <p class="bg-primary py-1 text-micro font-semibold text-white uppercase">{{ $month }}</p>
         <p class="py-1 font-heading text-2xl font-semibold tracking-tight text-navy">{{ $day }}</p>

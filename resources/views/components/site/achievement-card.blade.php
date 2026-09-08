@@ -18,7 +18,7 @@
     $statBg = $statTheme === 'primary' ? 'bg-primary' : 'bg-navy';
 @endphp
 
-<div class="overflow-hidden rounded-3xl">
+<div class="rise-in-solid overflow-hidden rounded-3xl">
     <div class="relative h-80">
         <x-site.image :src="asset('images/site/'.$photo)" :alt="$title" fit="full" :shadow="false" class="absolute inset-0" />
         <div class="absolute inset-0 bg-gradient-to-b from-navy/0 to-navy/90"></div>
@@ -38,7 +38,7 @@
 
     <div class="flex items-center justify-between px-7 py-4 {{ $statBg }}">
         <div class="flex items-center gap-stack-xs text-white">
-            <p class="font-heading text-3xl font-semibold">{{ $statValue }}</p>
+            <p class="font-heading text-3xl font-semibold"><x-site.count-up :value="$statValue" /></p>
             <p class="w-36 text-xs font-semibold tracking-wide uppercase">{{ $statLabel }}</p>
         </div>
 

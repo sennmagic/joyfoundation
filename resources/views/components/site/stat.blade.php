@@ -16,7 +16,7 @@
 @endphp
 
 <div {{ $attributes }}>
-    <p class="font-heading {{ $valueSize }} {{ $weights[$weight] }} tracking-tight {{ $colors[$color] }}">{{ $value }}</p>
+    <p class="font-heading {{ $valueSize }} {{ $weights[$weight] }} tracking-tight {{ $colors[$color] }}"><x-site.count-up :value="$value" /></p>
 
     <div class="mt-stack-xs {{ $captionWidth }} text-xs {{ $captionColors[$theme] }}">
         @foreach ($caption as $line)

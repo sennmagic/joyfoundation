@@ -192,6 +192,69 @@
 }
 
 /*
+| Horizontal siblings of rise-in — same fade-and-settle idea, but sliding
+| in from a side. Built for the alternating photo/text rows in the
+| Long-Term Community section: each column slides in from its own edge,
+| so the two halves converge toward center as the row scrolls into view.
+*/
+@keyframes slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+| "-solid" variants — same motion, no opacity fade. Use these instead of
+| the plain versions on solid-colored cards (a dark or orange block, not
+| text on the page background): fading a large solid-color block from
+| transparent visibly washes it out toward white mid-scroll, since the
+| transparency reveals the page background behind it. Position-only
+| motion doesn't have that artifact.
+*/
+@keyframes rise-in-solid {
+    from {
+        transform: translateY(28px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in-left-solid {
+    from {
+        transform: translateX(-40px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-in-right-solid {
+    from {
+        transform: translateX(40px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/*
 | Scroll-driven scale — element is smallest at the edges of the viewport
 | and reaches full size as it passes through the middle, so it swells and
 | settles as the user scrolls. Apply to a wrapper, not the visual element
@@ -202,12 +265,51 @@
     0% {
         transform: scale(0.82);
     }
+    35% {
+        transform: scale(0.98);
+    }
     50% {
         transform: scale(1);
+    }
+    65% {
+        transform: scale(0.98);
     }
     100% {
         transform: scale(0.82);
     }
+}
+
+/*
+| Scroll-driven ring "fill" — an SVG circle (drawn with `pathLength="100"`
+| so the stroke math is a plain 0–100 scale, independent of actual pixel
+| radius) traces empty at the viewport edges and draws fully closed at
+| the center, like a progress ring. Pairs with `.scroll-scale` on the
+| same wrapper so the ring and photo grow/shrink together.
+|
+| The circle is drawn with `-rotate-90` in markup so the fill starts at
+| 12 o'clock instead of SVG's default 3 o'clock.
+*/
+@keyframes ring-fill {
+    0% {
+        stroke-dashoffset: 100;
+    }
+    35% {
+        stroke-dashoffset: 8;
+    }
+    50% {
+        stroke-dashoffset: 0;
+    }
+    65% {
+        stroke-dashoffset: 8;
+    }
+    100% {
+        stroke-dashoffset: 100;
+    }
+}
+
+.ring-fill circle {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0; /* static fallback: fully drawn, matches the original design */
 }
 
 @supports (animation-timeline: view()) {
@@ -215,17 +317,47 @@
         animation: rise-in linear both;
     }
 
+    .slide-in-left {
+        animation: slide-in-left linear both;
+    }
+
+    .slide-in-right {
+        animation: slide-in-right linear both;
+    }
+
+    .rise-in-solid {
+        animation: rise-in-solid linear both;
+    }
+
+    .slide-in-left-solid {
+        animation: slide-in-left-solid linear both;
+    }
+
+    .slide-in-right-solid {
+        animation: slide-in-right-solid linear both;
+    }
+
     .scroll-scale {
         animation: scroll-scale linear both;
     }
 
+    .ring-fill circle {
+        animation: ring-fill linear both;
+    }
+
     /* Must come after the shorthand — it resets these longhands */
-    .rise-in {
+    .rise-in,
+    .slide-in-left,
+    .slide-in-right,
+    .rise-in-solid,
+    .slide-in-left-solid,
+    .slide-in-right-solid {
         animation-timeline: view();
         animation-range: entry 15% cover 45%;
     }
 
-    .scroll-scale {
+    .scroll-scale,
+    .ring-fill circle {
         animation-timeline: view();
         animation-range: cover 0% cover 100%;
     }
@@ -263,10 +395,21 @@
     .animate-marquee,
     .wave-drift,
     .wave-bob,
-    .rise-in {
+    .rise-in,
+    .slide-in-left,
+    .slide-in-right,
+    .rise-in-solid,
+    .slide-in-left-solid,
+    .slide-in-right-solid,
+    .scroll-scale {
         animation: none;
         opacity: 1;
         transform: none;
+    }
+
+    .ring-fill circle {
+        animation: none;
+        stroke-dashoffset: 0;
     }
 }
 

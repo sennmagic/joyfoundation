@@ -48,7 +48,7 @@
 
         <section class="px-gutter py-section-y sm:px-gutter-lg sm:py-section-y-lg">
             <div class="mx-auto grid max-w-7xl items-center gap-stack-lg lg:grid-cols-2">
-                <div class="relative mx-auto w-96 max-w-full">
+                <div class="scroll-scale relative mx-auto w-96 max-w-full">
                     <x-site.image
                         :src="asset($content['story']['photo'])"
                         alt="JOY Foundation volunteers at work"
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <div class="max-w-xl">
+                <div class="rise-in max-w-xl">
                     <x-site.section-eyebrow :label="$content['story']['eyebrow']" />
 
                     <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
@@ -161,10 +161,10 @@
 
             <div class="mx-auto max-w-7xl border-t border-navy/10 px-gutter sm:px-gutter-lg">
                 <div class="grid gap-stack-lg pt-stack-md pb-section-y sm:pb-section-y-lg xl:grid-cols-6 xl:gap-4 xl:divide-x xl:divide-navy/10">
-                    <div class="relative xl:col-span-2 xl:pr-4">
+                    <div class="rise-in relative xl:col-span-2 xl:pr-4">
                         <span class="pointer-events-none absolute -top-6 -left-1 hidden font-heading text-ghost font-semibold text-primary/5 xl:block" aria-hidden="true">{{ $content['impact']['headline_stat']['ghost'] }}</span>
 
-                        <p class="relative font-heading text-6xl font-semibold tracking-tight text-navy sm:text-7xl">{{ $content['impact']['headline_stat']['value'] }}</p>
+                        <p class="relative font-heading text-6xl font-semibold tracking-tight text-navy sm:text-7xl"><x-site.count-up :value="$content['impact']['headline_stat']['value']" /></p>
                         <span class="mt-stack-xs block h-1 w-12 rounded-full bg-primary"></span>
 
                         <div class="mt-stack-xs w-96 max-w-full text-sm text-muted">
@@ -181,7 +181,7 @@
                             :color="$stat['color']"
                             :weight="$stat['weight']"
                             value-size="text-stat"
-                            class="xl:px-4"
+                            class="rise-in xl:px-4"
                         />
                     @endforeach
                 </div>
@@ -199,7 +199,7 @@
                             value-size="text-stat-dark"
                             theme="dark"
                             caption-width="max-w-72"
-                            class="xl:px-5"
+                            class="rise-in xl:px-5"
                         />
                     @endforeach
                 </div>
@@ -388,7 +388,7 @@
 
                 <p class="mt-stack-md text-micro font-medium text-primary uppercase">{{ $content['events']['concluded_label'] }}</p>
 
-                <div class="mt-stack-xs grid grid-cols-1 overflow-hidden rounded-3xl bg-navy xl:grid-cols-2">
+                <div class="rise-in-solid mt-stack-xs grid grid-cols-1 overflow-hidden rounded-3xl bg-navy xl:grid-cols-2">
                     <div class="grid grid-cols-2">
                         @foreach ($content['events']['featured']['photos'] as $photo)
                             <x-site.image
@@ -423,7 +423,7 @@
                             shape="card"
                             fit="full"
                             :shadow="false"
-                            class="h-40"
+                            class="scroll-scale h-40"
                         />
                     @endforeach
                 </div>

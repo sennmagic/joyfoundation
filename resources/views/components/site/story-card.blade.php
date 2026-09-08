@@ -7,7 +7,7 @@
     'location',
 ])
 
-<div class="flex gap-stack-lg {{ $layout === 'horizontal' ? 'flex-col xl:flex-row xl:items-center' : 'flex-col' }}">
+<div class="rise-in flex gap-stack-lg {{ $layout === 'horizontal' ? 'flex-col xl:flex-row xl:items-center' : 'flex-col' }}">
     <div class="{{ $layout === 'horizontal' ? 'xl:w-1/2' : 'w-full' }}">
         <x-site.image :src="asset('images/site/'.$photo)" :alt="$headline" shape="card" fit="full" :shadow="false" class="{{ $layout === 'horizontal' ? 'h-90' : 'h-60' }}" />
     </div>

@@ -12,7 +12,7 @@
 ])
 
 <div class="grid gap-stack-lg border-t border-white/10 py-stack-lg xl:grid-cols-2 xl:items-center">
-    <div class="{{ $imageSide === 'right' ? 'xl:order-2' : '' }}">
+    <div class="{{ $imageSide === 'right' ? 'xl:order-2 slide-in-right' : 'slide-in-left' }}">
         <div class="relative h-96 overflow-hidden rounded-xl">
             <x-site.image :src="asset('images/site/'.$photo)" :alt="implode(' ', $title)" shape="card" fit="full" :shadow="false" />
             <div class="absolute inset-0 bg-gradient-to-b from-navy/0 to-navy/60"></div>
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="{{ $imageSide === 'right' ? 'xl:order-1' : '' }}">
+    <div class="{{ $imageSide === 'right' ? 'xl:order-1 slide-in-left' : 'slide-in-right' }}">
         <p class="text-xs font-medium tracking-widest text-primary uppercase">{{ $category }}</p>
 
         <h3 class="mt-stack-xs font-heading text-4xl font-semibold text-white">
