@@ -9,7 +9,7 @@
         <nav class="hidden items-center gap-1 rounded-full border border-white/15 bg-white/10 p-2 lg:flex">
             @foreach ($nav as $item)
                 @php
-                    $active = $item['href'] === '/' && request()->is('/');
+                    $active = request()->is(trim($item['href'], '/') ?: '/');
                 @endphp
 
                 <a

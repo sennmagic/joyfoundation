@@ -40,6 +40,14 @@ return [
             'report' => false,
         ],
 
+        'site' => [
+            'driver' => 'local',
+            'root' => public_path('images/site'),
+            'url' => '/images/site',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
