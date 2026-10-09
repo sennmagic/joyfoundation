@@ -13,6 +13,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -30,7 +31,7 @@ class SectionsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('type')
+            ->recordTitle(fn (Section $record): string => Section::label($record->type))
             ->reorderable('sort_order')
             ->defaultSort('sort_order')
             ->paginated(false)
@@ -40,15 +41,15 @@ class SectionsRelationManager extends RelationManager
                     ->imageWidth(120)
                     ->imageHeight(60)
                     ->label(''),
-                TextColumn::make('type')->badge()->formatStateUsing(fn (string $state): string => Section::label($state)),
+                TextColumn::make('type')->label('Layout')->badge()->formatStateUsing(fn (string $state): string => Section::label($state)),
                 ToggleColumn::make('is_visible')->label('Visible'),
                 TextColumn::make('updated_at')->since(),
             ])
             ->headerActions([
-                CreateAction::make()->label('Add section'),
+                CreateAction::make()->label('Add section')->slideOver()->modalWidth(Width::FourExtraLarge),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->slideOver()->modalWidth(Width::FourExtraLarge),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

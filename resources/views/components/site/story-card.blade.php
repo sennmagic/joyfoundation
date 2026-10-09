@@ -5,6 +5,7 @@
     'headline',
     'paragraphs' => [],
     'location',
+    'href' => '',
 ])
 
 <div class="rise-in flex gap-stack-lg {{ $layout === 'horizontal' ? 'flex-col xl:flex-row xl:items-center' : 'flex-col' }}">
@@ -29,5 +30,11 @@
             <img src="{{ asset('images/site/icon-location-pin.svg') }}" alt="" class="size-3">
             <p class="text-xs font-semibold text-navy">{{ $location }}</p>
         </div>
+
+        @if ($href !== '')
+            <a href="{{ $href }}" class="mt-stack-sm inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-navy/80">
+                Read More <span class="text-primary">&rarr;</span>
+            </a>
+        @endif
     </div>
 </div>

@@ -17,7 +17,7 @@ class SectionsTable
         return $table
             ->paginated(false)
             ->columns([
-                TextColumn::make('type')->badge()->formatStateUsing(fn (string $state): string => Section::label($state)),
+                TextColumn::make('type')->label('Setting')->badge()->formatStateUsing(fn (string $state): string => Section::label($state)),
                 ToggleColumn::make('is_visible')->label('Visible'),
                 TextColumn::make('updated_at')->since(),
             ])

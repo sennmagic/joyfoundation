@@ -12,6 +12,8 @@
     'tags' => [],
     'impact',
     'partners' => [],
+    'total',
+    'href' => '',
 ])
 
 @php
@@ -42,7 +44,7 @@
             <p class="w-36 text-xs font-semibold tracking-wide uppercase">{{ $statLabel }}</p>
         </div>
 
-        <p class="text-xs font-semibold tracking-wide text-white/75">{{ $index }}/04</p>
+        <p class="text-xs font-semibold tracking-wide text-white/75">{{ $index }}/{{ str_pad((string) $total, 2, '0', STR_PAD_LEFT) }}</p>
     </div>
 
     <div class="space-y-stack-xs bg-white px-7 pt-6 pb-7">
@@ -59,6 +61,12 @@
 
         @if (count($partners) > 0)
             <p class="text-xs font-semibold text-primary/85">WITH {{ implode(' · ', $partners) }}</p>
+        @endif
+
+        @if ($href !== '')
+            <a href="{{ $href }}" class="inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-navy/80">
+                Learn More <span class="text-primary">&rarr;</span>
+            </a>
         @endif
     </div>
 </div>

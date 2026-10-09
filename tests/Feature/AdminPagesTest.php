@@ -28,6 +28,15 @@ function sectionsOf(Page $page): Testable
     return Livewire::test(SectionsRelationManager::class, ['ownerRecord' => $page, 'pageClass' => EditPage::class]);
 }
 
+test('the dashboard lists every page with edit and view links', function (): void {
+    $this->get('/admin')->assertOk()
+        ->assertSee('JOY Foundation')
+        ->assertSee('About Us')
+        ->assertSee('/admin/pages/2/edit')
+        ->assertSee('http://localhost/about')
+        ->assertDontSee('filament.app');
+});
+
 test('the pages list and the site settings list render', function (): void {
     Livewire::test(ListPages::class)->assertOk()->assertSee('About Us')->assertSee('/about');
     Livewire::test(ListSections::class)->assertOk()->assertSee('Navigation')->assertSee('Social Links');
@@ -86,6 +95,20 @@ test('every section type has a preview image for the picker', function (): void 
         ->assertSchemaComponentExists('preview', $picker, fn (Image $image): bool => $image->isVisible() && str_ends_with($image->getUrl(), '/images/admin/sections/hero.png'));
 });
 
+test('items with odd stored titles still open in the editor', function (): void {
+    $stats = Page::query()->where('slug', 'home')->firstOrFail()->sections()->where('type', 'stats')->firstOrFail();
+    $data = $stats->data;
+    $data['stats'][0]['value'] = 42;
+    $data['stats'][1]['value'] = false;
+    $data['stats'][2]['value'] = ['nested' => ['deep']];
+    $stats->update(['data' => $data]);
+
+    sectionsOf($stats->page)->mountTableAction('edit', $stats)->assertOk();
+
+    $feature = Page::query()->where('slug', 'home')->firstOrFail()->sections()->where('type', 'feature_list')->firstOrFail();
+    sectionsOf($feature->page)->mountTableAction('edit', $feature)->assertOk();
+});
+
 test('a section can be added to a page from the relation manager', function (): void {
     $about = Page::query()->where('slug', 'about')->firstOrFail();
 
@@ -96,7 +119,7 @@ test('a section can be added to a page from the relation manager', function (): 
         ->callMountedTableAction()
         ->assertHasNoTableActionErrors();
 
-    expect($about->sections()->where('type', 'text_band')->value('sort_order'))->toBe(4);
+    expect($about->sections()->where('type', 'text_band')->value('sort_order'))->toBe(6);
     $this->get('/about')->assertSee('A line only on the About page');
     $this->get('/')->assertDontSee('A line only on the About page');
 });

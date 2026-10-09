@@ -9,6 +9,7 @@
     'impact',
     'partners' => [],
     'imageSide' => 'left',
+    'href' => '',
 ])
 
 <div class="grid gap-stack-lg border-t border-white/10 py-stack-lg xl:grid-cols-2 xl:items-center">
@@ -44,6 +45,12 @@
 
         @if (count($partners) > 0)
             <p class="mt-stack-sm text-xs text-white/75">WITH {{ implode(' · ', $partners) }}</p>
+        @endif
+
+        @if ($href !== '')
+            <a href="{{ $href }}" class="mt-stack-sm inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-white/90">
+                Learn More <span class="text-primary">&rarr;</span>
+            </a>
         @endif
     </div>
 </div>

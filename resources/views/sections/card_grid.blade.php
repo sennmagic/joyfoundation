@@ -8,17 +8,23 @@
 
         <p class="mt-stack-xs text-description text-body">{{ $content['subtext'] }}</p>
 
+        @php $items = $section->listItems(); @endphp
+
         <div class="mt-stack-lg grid grid-cols-1 gap-stack-lg border-t border-navy/10 pt-stack-lg xl:grid-cols-6">
-            @foreach ($content['items'] as $index => $program)
+            @foreach ($items as $index => $program)
                 <x-site.program-card
                     :photo="$program['photo']"
                     :icon="$program['icon']"
                     :category="$program['category']"
                     :title="$program['title']"
                     :description="$program['description']"
+                    :href="\App\Models\Section::itemUrl($page, $program)"
                     class="xl:col-span-2 {{ $index === 3 ? 'xl:col-start-2' : '' }} {{ $index === 4 ? 'xl:col-start-4' : '' }}"
                 />
             @endforeach
         </div>
+
+        <x-site.view-all :total="count($section->items())" :shown="count($items)" :label="$content['view_all_label'] ?? 'View all'" :href="$content['view_all_href'] ?? ''" />
+
     </div>
 </section>

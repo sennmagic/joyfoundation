@@ -43,8 +43,10 @@
             <div>
                 <p class="text-micro font-medium text-primary uppercase">{{ $content['upcoming_label'] }}</p>
 
+                @php $items = $section->listItems(); @endphp
+
                 <div class="mt-stack-xs divide-y divide-navy/10 border-t border-navy/10">
-                    @foreach ($content['upcoming'] as $event)
+                    @foreach ($items as $event)
                         <x-site.event-row
                             :month="$event['month']"
                             :day="$event['day']"
@@ -71,10 +73,7 @@
             @endforeach
         </div>
 
-        <div class="mt-stack-lg text-center">
-            <x-site.cta-button href="#" variant="solid">
-                {{ $content['cta_label'] }}
-            </x-site.cta-button>
-        </div>
+        <x-site.view-all :total="count($section->items())" :shown="count($items)" :label="$content['view_all_label'] ?? 'View all'" :href="$content['view_all_href'] ?? ''" />
+
     </div>
 </section>

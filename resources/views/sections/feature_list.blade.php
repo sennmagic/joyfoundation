@@ -15,8 +15,10 @@
             </p>
         </div>
 
+        @php $items = $section->listItems(); @endphp
+
         <div class="mt-stack-lg">
-            @foreach ($content['initiatives'] as $initiative)
+            @foreach ($items as $initiative)
                 <x-site.initiative
                     :photo="$initiative['photo']"
                     :badge="$initiative['badge']"
@@ -28,8 +30,12 @@
                     :impact="$initiative['impact']"
                     :partners="$initiative['partners']"
                     :image-side="$loop->odd ? 'left' : 'right'"
+                    :href="\App\Models\Section::itemUrl($page, $initiative)"
                 />
             @endforeach
         </div>
+
+        <x-site.view-all :total="count($section->items())" :shown="count($items)" :label="$content['view_all_label'] ?? 'View all'" :href="$content['view_all_href'] ?? ''" />
+
     </div>
 </section>

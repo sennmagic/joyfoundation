@@ -15,8 +15,10 @@
             </p>
         </div>
 
+        @php $items = $section->listItems(); @endphp
+
         <div class="mt-stack-lg grid grid-cols-1 gap-stack-lg border-t border-navy/10 pt-stack-lg xl:grid-cols-2">
-            @foreach ($content['items'] as $index => $achievement)
+            @foreach ($items as $index => $achievement)
                 <x-site.achievement-card
                     :photo="$achievement['photo']"
                     :category="$achievement['category']"
@@ -31,8 +33,13 @@
                     :tags="$achievement['tags']"
                     :impact="$achievement['impact']"
                     :partners="$achievement['partners']"
+                    :total="count($items)"
+                    :href="\App\Models\Section::itemUrl($page, $achievement)"
                 />
             @endforeach
         </div>
+
+        <x-site.view-all :total="count($section->items())" :shown="count($items)" :label="$content['view_all_label'] ?? 'View all'" :href="$content['view_all_href'] ?? ''" />
+
     </div>
 </section>

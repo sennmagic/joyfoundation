@@ -1,4 +1,4 @@
-@props(['photo', 'icon', 'category', 'title', 'description'])
+@props(['photo', 'icon', 'category', 'title', 'description', 'href' => ''])
 
 <div {{ $attributes->merge(['class' => 'flex flex-col items-center text-center']) }}>
     <div class="scroll-scale relative">
@@ -19,7 +19,9 @@
     <h3 class="mt-stack-xs font-heading text-lg font-semibold text-navy">{{ $title }}</h3>
     <p class="mt-stack-xs max-w-xs text-description text-navy/70">{{ $description }}</p>
 
-    <a href="#" class="mt-stack-sm inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-navy/80">
-        Learn More <span class="text-primary">&rarr;</span>
-    </a>
+    @if ($href !== '')
+        <a href="{{ $href }}" class="mt-stack-sm inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-navy/80">
+            Learn More <span class="text-primary">&rarr;</span>
+        </a>
+    @endif
 </div>

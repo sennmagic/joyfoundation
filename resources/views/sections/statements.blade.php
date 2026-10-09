@@ -15,31 +15,19 @@
         </div>
 
         <div class="mt-stack-lg space-y-stack-lg">
-            <div class="rise-in relative flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
-                <span class="pointer-events-none absolute -top-10 left-0 hidden font-heading text-9xl leading-none text-primary/25 xl:block" aria-hidden="true">&ldquo;</span>
+            @foreach ($content['blocks'] ?? [] as $block)
+                <div class="rise-in relative flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
+                    @if ($loop->first)
+                        <span class="pointer-events-none absolute -top-10 left-0 hidden font-heading text-9xl leading-none text-primary/25 xl:block" aria-hidden="true">&ldquo;</span>
+                    @endif
 
-                <p class="w-48 shrink-0 font-heading text-sm font-medium text-primary">— {{ $content['mission']['label'] }}</p>
-                <x-site.rich-text
-                    :segments="$content['mission']['segments']"
-                    class="relative flex-1 font-heading text-2xl leading-snug font-medium text-navy sm:text-value"
-                />
-            </div>
-
-            <div class="rise-in flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
-                <p class="w-48 shrink-0 font-heading text-sm font-medium text-primary">— {{ $content['vision']['label'] }}</p>
-                <x-site.rich-text
-                    :segments="$content['vision']['segments']"
-                    class="max-w-copy flex-1 font-heading text-2xl leading-snug font-medium text-navy sm:text-value"
-                />
-            </div>
-
-            <div class="rise-in flex flex-col gap-stack-xs xl:flex-row xl:gap-stack-md">
-                <p class="w-48 shrink-0 font-heading text-sm font-medium text-primary">{{ $content['guides']['label'] }}</p>
-                <x-site.rich-text
-                    :segments="$content['guides']['segments']"
-                    class="flex-1 font-heading text-2xl leading-snug text-navy sm:text-value"
-                />
-            </div>
+                    <p class="w-48 shrink-0 font-heading text-sm font-medium text-primary">{{ $block['label'] }}</p>
+                    <x-site.rich-text
+                        :segments="$block['segments']"
+                        class="relative flex-1 font-heading text-2xl leading-snug font-medium text-navy sm:text-value"
+                    />
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
