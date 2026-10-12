@@ -6,7 +6,7 @@
 
                 <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading-sm">
                     {{ $content['heading']['line1'] }}<br>
-                    {{ $content['heading']['line2_prefix'] }}<span class="font-light text-primary">{{ $content['heading']['line2_highlight'] }}</span>
+                    {{ $content['heading']['line2_prefix'] }}<span class="font-medium text-primary-ink">{{ $content['heading']['line2_highlight'] }}</span>
                 </h2>
             </div>
 
@@ -50,7 +50,17 @@
     <div class="border-t border-navy/10 bg-navy">
         <div class="mx-auto grid max-w-7xl gap-stack-lg px-gutter py-stack-lg sm:px-gutter-lg xl:grid-cols-4 xl:divide-x xl:divide-white/5">
             @foreach ($content['dark_stats'] as $stat)
+                @php
+                    $statIcon = match ($stat['caption']) {
+                        'Student scholarships' => 'academic-cap',
+                        'Organisations supported' => 'building-office-2',
+                        'Districts reached' => 'map-pin',
+                        'Walking alongside communities' => 'user-group',
+                        default => null,
+                    };
+                @endphp
                 <x-site.stat
+                    :icon="$statIcon"
                     :value="$stat['value']"
                     :caption="[$stat['caption']]"
                     :sub-caption="$stat['sub_caption']"

@@ -183,5 +183,66 @@ test('hiding or deleting the nav and social settings keeps the pages up', functi
 test('the seeder does not duplicate rows when run twice', function (): void {
     $this->seed(SectionSeeder::class);
 
-    expect(Page::query()->count())->toBe(6)->and(Section::query()->count())->toBe(26);
+    expect(Page::query()->count())->toBe(6)->and(Section::query()->count())->toBe(27);
+});
+
+test('shared navigation is translucent with readable links on hero and white backgrounds', function (): void {
+    foreach (['/' => 'text-white', '/about' => 'text-white', '/contact' => 'text-body', '/home/free-medical-health-camps' => 'text-white'] as $url => $linkColor) {
+        $document = new DOMDocument;
+        @$document->loadHTML($this->get($url)->assertOk()->getContent());
+        $xpath = new DOMXPath($document);
+        $nav = $xpath->query('//nav[@aria-label="Main navigation"]')->item(0);
+        expect($nav->getAttribute('class'))->toContain('bg-white/10')->not->toContain('bg-cream');
+        $programs = $xpath->query('.//a[@href="/programs"]', $nav)->item(0);
+        expect(explode(' ', $programs->getAttribute('class')))->toContain($linkColor, 'text-sm', 'font-semibold');
+        $menuToggle = $xpath->query('//header//summary[@aria-label="Navigation menu"]')->item(0);
+        expect($menuToggle->getAttribute('class'))->toContain('bg-white/10')->not->toContain('bg-cream');
+    }
+});
+
+test('the shared header keeps contact only as its button without changing footer navigation', function (): void {
+    foreach (['/', '/about', '/contact', '/home/free-medical-health-camps'] as $url) {
+        $document = new DOMDocument;
+        @$document->loadHTML($this->get($url)->assertOk()->getContent());
+        $xpath = new DOMXPath($document);
+        expect($xpath->query('//header//nav//a[@href="/contact"]'))->toHaveCount(0);
+        expect($xpath->query('//header//a[@href="'.route('page', ['slug' => 'contact']).'" and not(ancestor::nav)]'))->toHaveCount(1);
+        expect($xpath->query('//footer//nav//a[@href="/contact"]'))->toHaveCount(1);
+    }
+});
+
+test('mobile navigation is usable without scripts and is not clipped by the hero', function (): void {
+    $document = new DOMDocument;
+    @$document->loadHTML($this->get('/')->assertOk()->getContent());
+    $xpath = new DOMXPath($document);
+    expect($xpath->query('//header//details/summary'))->toHaveCount(1);
+    $mobile = $xpath->query('//header//details//nav[@aria-label="Mobile navigation"]');
+    expect($mobile)->toHaveCount(1);
+    expect($xpath->query('.//a', $mobile->item(0)))->toHaveCount(5);
+    expect($xpath->query('//header/ancestor::*[contains(concat(" ", normalize-space(@class), " "), " overflow-hidden ")]'))->toHaveCount(0);
+});
+
+test('impact icons match their captions even when the four stats are reordered', function (): void {
+    $stats = Page::query()->where('slug', 'home')->firstOrFail()->sections()->where('type', 'stats')->firstOrFail();
+    $stats->update(['data' => [...$stats->data, 'dark_stats' => array_reverse($stats->data['dark_stats'])]]);
+    $document = new DOMDocument;
+    @$document->loadHTML($this->get('/')->assertOk()->getContent());
+    $xpath = new DOMXPath($document);
+    $icons = [
+        'academic-cap' => 'Student scholarships',
+        'building-office-2' => 'Organisations supported',
+        'map-pin' => 'Districts reached',
+        'user-group' => 'Walking alongside communities',
+    ];
+
+    expect($xpath->query('//main//*[@data-stat-icon]'))->toHaveCount(4);
+    foreach ($icons as $icon => $caption) {
+        $matches = $xpath->query('//main//svg[@data-stat-icon="'.$icon.'"]');
+        expect($matches)->toHaveCount(1);
+        $svg = $matches->item(0);
+        expect($svg->getAttribute('viewbox'))->toBe('0 0 24 24');
+        expect($svg->getAttribute('stroke-width'))->toBe('1.5');
+        expect($svg->getAttribute('aria-hidden'))->toBe('true');
+        expect($svg->parentNode->parentNode->textContent)->toContain($caption);
+    }
 });

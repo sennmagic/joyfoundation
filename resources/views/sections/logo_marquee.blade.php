@@ -5,7 +5,7 @@
                 <x-site.section-eyebrow :label="$content['eyebrow']" />
 
                 <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy">
-                    {{ $content['heading_prefix'] }}<span class="font-light text-primary">{{ $content['heading_highlight'] }}</span>.
+                    {{ $content['heading_prefix'] }}<span class="font-medium text-primary-ink">{{ $content['heading_highlight'] }}</span>.
                 </h2>
             </div>
 

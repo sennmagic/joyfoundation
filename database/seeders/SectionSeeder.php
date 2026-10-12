@@ -16,6 +16,8 @@ class SectionSeeder extends Seeder
      */
     public function run(): void
     {
+        Section::query()->firstOrCreate(['page_id' => null, 'type' => 'contact'], ['data' => []]);
+
         if (Page::query()->exists()) {
             return;
         }

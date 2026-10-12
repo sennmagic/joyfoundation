@@ -40,6 +40,7 @@ class Section extends Model
         'events' => 'Events',
         'nav' => 'Navigation',
         'social' => 'Social Links',
+        'contact' => 'Contact Details',
     ];
 
     /** @var array<string, string> Which config/home.php block seeds each layout. */
@@ -69,8 +70,8 @@ class Section extends Model
         'events' => 'upcoming',
     ];
 
-    /** Keys of config/home.php that hold site-wide settings (rows with no page). */
-    public const SETTINGS = ['nav', 'social'];
+    /** Site-wide settings stored as rows with no page. */
+    public const SETTINGS = ['nav', 'social', 'contact'];
 
     /**
      * Every item this list section can show: its own, or, when it points at a

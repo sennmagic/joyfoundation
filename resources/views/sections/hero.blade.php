@@ -1,4 +1,4 @@
-<section class="relative overflow-hidden bg-navy">
+<section class="relative bg-navy">
     <img src="{{ asset('images/site/'.$content['background']) }}" alt="" class="absolute inset-0 h-full w-full object-cover">
     <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/55"></div>
 
@@ -13,7 +13,6 @@
         <h1 class="font-heading text-5xl font-semibold tracking-tight text-white text-shadow-lg sm:text-6xl lg:text-hero">
             {{ $content['heading_prefix'] }}<span class="text-primary">{{ $content['heading_highlight'] }}</span>{{ $content['heading_suffix'] }}
         </h1>
-        <x-site.view-all type="hero" :content="$content" />
     </div>
 
     <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 overflow-hidden" aria-hidden="true">

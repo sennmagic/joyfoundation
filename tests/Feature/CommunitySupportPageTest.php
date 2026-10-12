@@ -38,7 +38,8 @@ class CommunitySupportPageTest extends TestCase
         @$document->loadHTML($html);
         $xpath = new \DOMXPath($document);
         foreach (['/programs', '/long-term-community-support'] as $href) {
-            $this->assertSame(1, $xpath->query('//nav//a[@href="'.$href.'"]')->length);
+            $this->assertSame(1, $xpath->query('//header//nav[@aria-label="Main navigation"]//a[@href="'.$href.'"]')->length);
+            $this->assertSame(1, $xpath->query('//header//nav[@aria-label="Mobile navigation"]//a[@href="'.$href.'"]')->length);
             $this->assertSame(1, $xpath->query('//main//section//a[not(ancestor::header) and @href="'.$href.'"]')->length);
         }
 

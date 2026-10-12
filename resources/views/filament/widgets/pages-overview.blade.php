@@ -42,7 +42,7 @@
                 <li><strong>Pick a page</strong> from the list or the sidebar.</li>
                 <li><strong>Add section</strong> and choose a layout from the picture list. Each layout is one block of the page.</li>
                 <li><strong>Fill in the text and images</strong>, then save. Drag rows to reorder, or switch a row off to hide it.</li>
-                <li><strong>Site Settings</strong> holds the menu and social links shared by every page.</li>
+                <li><strong>Site Settings</strong> holds the menu, social links and <strong>Contact Details</strong> shared by the contact page and footer.</li>
             </ol>
         </x-filament::section>
     </div>

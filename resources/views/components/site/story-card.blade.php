@@ -14,9 +14,9 @@
     </div>
 
     <div class="{{ $layout === 'horizontal' ? 'xl:w-1/2' : 'w-full' }}">
-        <p class="text-xs font-medium tracking-widest text-primary uppercase">{{ $category }}</p>
+        <p class="text-xs font-semibold tracking-wide text-primary-ink uppercase">{{ $category }}</p>
 
-        <h3 class="mt-stack-xs font-heading font-semibold text-navy {{ $layout === 'horizontal' ? 'text-3xl' : 'text-xl' }}">
+        <h3 class="mt-stack-xs font-heading font-semibold text-navy {{ $layout === 'horizontal' ? 'text-3xl' : 'text-2xl' }}">
             {{ $headline }}
         </h3>
 
@@ -32,7 +32,7 @@
         </div>
 
         @if ($href !== '')
-            <a href="{{ $href }}" class="mt-stack-sm inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-navy/80">
+            <a href="{{ $href }}" class="mt-stack-sm inline-flex min-h-11 items-center gap-1 border-b border-primary/60 pb-1 text-sm font-semibold text-primary-ink">
                 Read More <span class="text-primary">&rarr;</span>
             </a>
         @endif

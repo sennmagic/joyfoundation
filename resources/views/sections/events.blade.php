@@ -5,7 +5,7 @@
                 <x-site.section-eyebrow :label="$content['eyebrow']" />
 
                 <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
-                    {{ $content['heading_prefix'] }}<span class="font-light text-primary">{{ $content['heading_highlight'] }}</span>{{ $content['heading_suffix'] }}
+                    {{ $content['heading_prefix'] }}<span class="font-medium text-primary-ink">{{ $content['heading_highlight'] }}</span>{{ $content['heading_suffix'] }}
                 </h2>
 
                 <p class="mt-stack-sm max-w-2xl text-description text-body">{{ $content['subtext'] }}</p>
@@ -16,7 +16,7 @@
 
         <div class="mt-stack-md grid grid-cols-1 gap-stack-md xl:grid-cols-2">
             <div>
-                <p class="text-micro font-medium text-primary uppercase">{{ $content['concluded_label'] }}</p>
+                <p class="text-micro font-semibold text-primary-ink uppercase">{{ $content['concluded_label'] }}</p>
 
                 <div class="rise-in-solid mt-stack-xs overflow-hidden rounded-3xl bg-navy">
                     <div class="grid grid-cols-2">
@@ -35,7 +35,7 @@
                     <div class="p-stack-md">
                         <h3 class="font-heading text-2xl font-semibold tracking-tight text-white">{{ $content['featured']['title'] }}</h3>
                         <p class="mt-stack-sm text-xs font-medium tracking-widest text-primary uppercase">{{ $content['featured']['date'] }}</p>
-                        <p class="mt-stack-xs text-description text-white/60">{{ $content['featured']['description'] }}</p>
+                        <p class="mt-stack-xs text-description text-white/90">{{ $content['featured']['description'] }}</p>
 
                         <div class="mt-stack-md flex flex-wrap gap-stack-xs">
                             @foreach ($content['featured']['stats'] as $stat)
@@ -47,7 +47,7 @@
             </div>
 
             <div>
-                <p class="text-micro font-medium text-primary uppercase">{{ $content['upcoming_label'] }}</p>
+                <p class="text-micro font-semibold text-primary-ink uppercase">{{ $content['upcoming_label'] }}</p>
 
                 @php $items = $section->listItems(); @endphp
 

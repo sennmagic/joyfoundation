@@ -17,7 +17,7 @@
 ])
 
 @php
-    $statBg = $statTheme === 'primary' ? 'bg-primary' : 'bg-navy';
+    $statBg = $statTheme === 'primary' ? 'bg-primary-ink' : 'bg-navy';
 @endphp
 
 <div class="rise-in-solid overflow-hidden rounded-3xl">
@@ -60,11 +60,11 @@
         </div>
 
         @if (count($partners) > 0)
-            <p class="text-xs font-semibold text-primary/85">WITH {{ implode(' · ', $partners) }}</p>
+            <p class="text-sm font-semibold text-primary-ink">WITH {{ implode(' · ', $partners) }}</p>
         @endif
 
         @if ($href !== '')
-            <a href="{{ $href }}" class="inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-navy/80">
+            <a href="{{ $href }}" class="inline-flex min-h-11 items-center gap-1 border-b border-primary/60 pb-1 text-sm font-semibold text-primary-ink">
                 Learn More <span class="text-primary">&rarr;</span>
             </a>
         @endif

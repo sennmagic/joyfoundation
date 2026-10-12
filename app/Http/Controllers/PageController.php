@@ -15,7 +15,7 @@ class PageController extends Controller
     {
         $page = $this->page($slug);
 
-        return view('page', [
+        return view($slug === 'contact' ? 'contact' : 'page', [
             'page' => $page,
             'site' => $this->site(),
             'sections' => $page->sections()->visible()->get(),

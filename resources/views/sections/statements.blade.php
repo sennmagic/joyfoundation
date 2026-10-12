@@ -5,7 +5,7 @@
                 <x-site.section-eyebrow :label="$content['eyebrow']" />
 
                 <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
-                    {{ $content['heading_prefix'] }}<span class="font-light text-primary">{{ $content['heading_highlight'] }}</span>{{ $content['heading_suffix'] }}
+                    {{ $content['heading_prefix'] }}<span class="font-medium text-primary-ink">{{ $content['heading_highlight'] }}</span>{{ $content['heading_suffix'] }}
                 </h2>
             </div>
 
@@ -22,7 +22,7 @@
                         <span class="pointer-events-none absolute -top-10 left-0 hidden font-heading text-9xl leading-none text-primary/25 xl:block" aria-hidden="true">&ldquo;</span>
                     @endif
 
-                    <p class="w-48 shrink-0 font-heading text-sm font-medium text-primary">{{ $block['label'] }}</p>
+                    <p class="w-48 shrink-0 font-heading text-base font-semibold text-primary-ink">{{ $block['label'] }}</p>
                     <x-site.rich-text
                         :segments="$block['segments']"
                         class="relative flex-1 font-heading text-2xl leading-snug font-medium text-navy sm:text-value"

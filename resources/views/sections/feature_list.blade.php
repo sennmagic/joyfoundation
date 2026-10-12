@@ -6,7 +6,7 @@
 
                 <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-white sm:text-heading">
                     {{ $content['heading']['line1'] }}<br>
-                    <span class="font-light text-primary">{{ $content['heading']['line2_highlight'] }}</span>{{ $content['heading']['line2_suffix'] }}
+                    <span class="font-medium text-primary">{{ $content['heading']['line2_highlight'] }}</span>{{ $content['heading']['line2_suffix'] }}
                 </h2>
             </div>
 

@@ -16,7 +16,7 @@ class HomepageViewAllTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_every_homepage_section_has_one_view_all_button_even_when_all_items_fit(): void
+    public function test_every_homepage_section_except_the_hero_has_one_view_all_button_even_when_all_items_fit(): void
     {
         $this->seed(SectionSeeder::class);
         $home = Page::query()->where('slug', 'home')->firstOrFail();
@@ -25,13 +25,18 @@ class HomepageViewAllTest extends TestCase
 
         foreach (['/', '/home'] as $url) {
             $document = new DOMDocument;
-            @$document->loadHTML($this->get($url)->assertOk()->getContent());
+            @$document->loadHTML($this->get($url)->assertOk()->assertDontSee('Discover JOY')->getContent());
             $xpath = new DOMXPath($document);
             $renderedSections = $xpath->query('//main/section');
             $this->assertCount(count(Section::TYPES), $renderedSections);
 
             foreach ($renderedSections as $index => $element) {
                 $buttons = $xpath->query('.//a[@data-view-all]', $element);
+                if ($sections[$index]->type === 'hero') {
+                    $this->assertCount(0, $buttons, 'The hero must not have a Discover JOY or View all link');
+
+                    continue;
+                }
                 $this->assertCount(1, $buttons, $sections[$index]->type.' must have exactly one View all button');
                 $href = $buttons->item(0)->getAttribute('href');
                 $expected = $sections[$index]->data['view_all_href'] ?? '/about';

@@ -1,4 +1,4 @@
-@props(['title', 'description'])
+@props(['title', 'description', 'site' => []])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,8 @@
     @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-white font-sans text-navy antialiased">
+<body class="bg-white font-sans text-base font-medium text-navy antialiased">
     {{ $slot }}
+    <x-site.footer :site="$site" />
 </body>
 </html>

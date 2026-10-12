@@ -1,6 +1,6 @@
 @php $title = \App\Models\Section::itemTitle($item); @endphp
 
-<x-layouts.app :title="$title.' — '.$page->title" :description="$item['description'] ?? null">
+<x-layouts.app :title="$title.' — '.$page->title" :description="$item['description'] ?? null" :site="$site">
     <main>
         @include('sections.hero', ['content' => [
             'background' => $item['photo'] ?? $site['hero']['background'] ?? 'hero-bg.png',

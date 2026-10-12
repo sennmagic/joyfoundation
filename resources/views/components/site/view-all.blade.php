@@ -12,7 +12,6 @@
         $label = trim($content['view_all_label'] ?? '');
         if ($label === '' || strcasecmp($label, 'View all') === 0) {
             $label = match ($type) {
-                'hero' => 'Discover JOY',
                 'text_band' => 'Get to know us',
                 'image_text' => 'Discover our story',
                 'statements' => 'What guides us',
@@ -26,7 +25,7 @@
                 default => 'View all',
             };
         }
-        $light = in_array($type, ['hero', 'feature_list'], true);
+        $light = $type === 'feature_list';
     @endphp
 
     <a

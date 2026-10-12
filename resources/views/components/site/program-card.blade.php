@@ -15,12 +15,12 @@
 
     <span class="mt-stack-xs block h-3.5 w-px bg-primary/35"></span>
 
-    <p class="mt-stack-xs text-xs font-semibold tracking-wide text-primary uppercase">{{ $category }}</p>
-    <h3 class="mt-stack-xs font-heading text-lg font-semibold text-navy">{{ $title }}</h3>
-    <p class="mt-stack-xs max-w-xs text-description text-navy/70">{{ $description }}</p>
+    <p class="mt-stack-xs text-xs font-semibold tracking-wide text-primary-ink uppercase">{{ $category }}</p>
+    <h3 class="mt-stack-xs font-heading text-2xl font-semibold text-navy">{{ $title }}</h3>
+    <p class="mt-stack-xs max-w-xs text-description text-body">{{ $description }}</p>
 
     @if ($href !== '')
-        <a href="{{ $href }}" class="mt-stack-sm inline-flex items-center gap-1 border-b border-primary/60 pb-1 text-xs font-semibold text-navy/80">
+        <a href="{{ $href }}" class="mt-stack-sm inline-flex min-h-11 items-center gap-1 border-b border-primary/60 pb-1 text-sm font-semibold text-primary-ink">
             Learn More <span class="text-primary">&rarr;</span>
         </a>
     @endif

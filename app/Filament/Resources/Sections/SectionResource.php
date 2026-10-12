@@ -16,7 +16,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
-/** Site-wide settings (nav, social). Page sections are managed inside each Page. */
+/** Site-wide settings. Page sections are managed inside each Page. */
 class SectionResource extends Resource
 {
     protected static ?string $model = Section::class;

@@ -2,5 +2,5 @@
 
 <div {{ $attributes->merge(['class' => 'flex items-center gap-stack-xs']) }}>
     <img src="{{ asset('images/site/icon-smiley.svg') }}" alt="" class="size-5">
-    <span class="text-eyebrow font-medium {{ $labelColor }} uppercase">{{ $label }}</span>
+    <span class="text-eyebrow font-semibold {{ $labelColor }} uppercase">{{ $label }}</span>
 </div>

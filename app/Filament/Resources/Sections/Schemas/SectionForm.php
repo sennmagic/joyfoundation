@@ -90,6 +90,21 @@ class SectionForm
                     self::image('icon'),
                 ])->columns(3),
             ],
+            'contact' => [
+                FormSection::make('Contact Details')
+                    ->description('Used on the Contact Us page and in the footer of every page. Leave a field empty to hide it.')
+                    ->columns(2)
+                    ->schema([
+                        Textarea::make('intro')->label('Contact page introduction')->rows(3)->maxLength(1000)->columnSpanFull(),
+                        TextInput::make('email')->label('Public email')->email()->maxLength(254),
+                        TextInput::make('phone')->label('Phone number')->tel()->regex('/^\+?[0-9][0-9 ().-]*[0-9]$/')->maxLength(50)
+                            ->helperText('Include the country code. Spaces, parentheses and hyphens are allowed.'),
+                        Textarea::make('address')->rows(3)->maxLength(1000),
+                        Textarea::make('hours')->label('Opening hours')->rows(3)->maxLength(500),
+                        TextInput::make('map_url')->label('Directions / map link')->url()->rules(['url:http,https'])->maxLength(2048)
+                            ->helperText('Paste an https:// or http:// map link. No embed code is needed.')->columnSpanFull(),
+                    ]),
+            ],
             'hero' => [
                 self::image('background'),
                 self::heading(),
