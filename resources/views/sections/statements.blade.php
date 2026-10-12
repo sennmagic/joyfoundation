@@ -9,9 +9,10 @@
                 </h2>
             </div>
 
-            <p class="max-w-xs text-description text-body">
-                {{ $content['intro'] }}
-            </p>
+            <div class="max-w-xs">
+                <p class="text-description text-body">{{ $content['intro'] }}</p>
+                <x-site.view-all type="statements" :content="$content" class="mt-stack-sm" />
+            </div>
         </div>
 
         <div class="mt-stack-lg space-y-stack-lg">

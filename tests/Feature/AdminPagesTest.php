@@ -144,7 +144,7 @@ test('site settings can be edited', function (): void {
         ->call('save')
         ->assertHasNoFormErrors();
 
-    $this->get('/')->assertSee('Start')->assertDontSee('Contact Us');
+    $this->get('/')->assertSee('Start')->assertDontSee('href="/contact"', false);
 });
 
 test('page sections are not reachable through the site settings resource', function (): void {

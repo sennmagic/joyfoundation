@@ -1,12 +1,18 @@
 <section class="bg-white px-gutter py-section-y sm:px-gutter-lg sm:py-section-y-lg">
     <div class="mx-auto max-w-7xl">
-        <x-site.section-eyebrow :label="$content['eyebrow']" />
+        <div class="flex flex-col gap-stack-sm xl:flex-row xl:items-end xl:justify-between">
+            <div class="min-w-0 flex-1">
+                <x-site.section-eyebrow :label="$content['eyebrow']" />
 
-        <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
-            {{ $content['heading_prefix'] }}<span class="font-light text-primary">{{ $content['heading_highlight'] }}</span>{{ $content['heading_suffix'] }}
-        </h2>
+                <h2 class="mt-stack-sm font-heading text-4xl font-semibold tracking-tight text-navy sm:text-heading">
+                    {{ $content['heading_prefix'] }}<span class="font-light text-primary">{{ $content['heading_highlight'] }}</span>{{ $content['heading_suffix'] }}
+                </h2>
 
-        <p class="mt-stack-sm max-w-2xl text-description text-body">{{ $content['subtext'] }}</p>
+                <p class="mt-stack-sm max-w-2xl text-description text-body">{{ $content['subtext'] }}</p>
+            </div>
+
+            <x-site.view-all type="events" :content="$content" class="shrink-0" />
+        </div>
 
         <div class="mt-stack-md grid grid-cols-1 gap-stack-md xl:grid-cols-2">
             <div>
@@ -72,8 +78,6 @@
                 />
             @endforeach
         </div>
-
-        <x-site.view-all :total="count($section->items())" :shown="count($items)" :label="$content['view_all_label'] ?? 'View all'" :href="$content['view_all_href'] ?? ''" />
 
     </div>
 </section>

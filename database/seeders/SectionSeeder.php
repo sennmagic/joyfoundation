@@ -12,7 +12,7 @@ class SectionSeeder extends Seeder
 {
     /**
      * Copies config/home.php into pages + sections so every block is editable in the admin.
-     * The homepage gets every block; About, Programs and Contact get a hero plus starter blocks.
+     * The homepage previews content owned by the other pages.
      */
     public function run(): void
     {
@@ -25,12 +25,14 @@ class SectionSeeder extends Seeder
             ['label' => 'Home', 'href' => '/'],
             ['label' => 'About Us', 'href' => '/about'],
             ['label' => 'Programs', 'href' => '/programs'],
+            ['label' => 'Community Support', 'href' => '/long-term-community-support'],
             ['label' => 'Events', 'href' => '/events'],
             ['label' => 'Contact Us', 'href' => '/contact'],
         ]]]);
 
         $this->page('About Us', 'about', ['hero', 'image_text', 'statements', 'feature_cards', 'article_grid']);
-        $this->page('Programs', 'programs', ['hero', 'card_grid', 'feature_list']);
+        $this->page('Programs', 'programs', ['hero', 'card_grid']);
+        $this->page('Long-Term Community Support', 'long-term-community-support', ['hero', 'feature_list']);
         $this->page('Events', 'events', ['hero', 'events']);
         $this->page('Contact Us', 'contact', ['hero', 'text_band']);
         $home = $this->page('Home', 'home', Section::TYPES, config('home.seo'));

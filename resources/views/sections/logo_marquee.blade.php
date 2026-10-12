@@ -13,6 +13,7 @@
                 @foreach ($content['note'] as $line)
                     <p>{{ $line }}</p>
                 @endforeach
+                <x-site.view-all type="logo_marquee" :content="$content" class="mt-stack-sm" />
             </div>
         </div>
     </div>

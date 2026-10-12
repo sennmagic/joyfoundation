@@ -14,6 +14,7 @@
                 @foreach ($content['note'] as $line)
                     <p>{{ $line }}</p>
                 @endforeach
+                <x-site.view-all type="stats" :content="$content" class="mt-stack-sm" />
             </div>
         </div>
     </div>

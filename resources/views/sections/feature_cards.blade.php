@@ -10,9 +10,10 @@
                 </h2>
             </div>
 
-            <p class="w-full max-w-96 text-description text-body">
-                {{ $content['subtext'] }}
-            </p>
+            <div class="w-full max-w-96">
+                <p class="text-description text-body">{{ $content['subtext'] }}</p>
+                <x-site.view-all type="feature_cards" :content="$content" class="mt-stack-sm" />
+            </div>
         </div>
 
         @php $items = $section->listItems(); @endphp
@@ -38,8 +39,6 @@
                 />
             @endforeach
         </div>
-
-        <x-site.view-all :total="count($section->items())" :shown="count($items)" :label="$content['view_all_label'] ?? 'View all'" :href="$content['view_all_href'] ?? ''" />
 
     </div>
 </section>

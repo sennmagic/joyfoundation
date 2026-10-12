@@ -38,6 +38,7 @@ body {
     --------------------------------------------------------------- */
     --color-navy: #1a1f2e; /* headings, dark section backgrounds */
     --color-primary: #f08348; /* brand orange — CTAs, accents, highlights */
+    --color-primary-ink: #b44d1c; /* readable orange links on white and cream */
     --color-body: #6b6b78; /* paragraph copy */
     --color-cream: #fdf6ec; /* tinted section backgrounds */
 

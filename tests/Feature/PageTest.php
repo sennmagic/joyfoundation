@@ -84,7 +84,7 @@ test('the homepage shows the items ticked on the source page', function (): void
     $this->get('/')->assertOk()->assertDontSee('Free Medical');
 });
 
-test('list sections show six items and a view all link when there are more', function (): void {
+test('homepage list sections keep their view all link regardless of the item limit', function (): void {
     $home = Page::query()->where('slug', 'home')->firstOrFail()->sections()->where('type', 'card_grid')->firstOrFail();
     $source = sourceOf('card_grid');
     $items = array_map(fn (int $i): array => [...$source->data['items'][0], 'title' => "Program number {$i}", 'details' => ''], range(1, 8));
@@ -94,7 +94,7 @@ test('list sections show six items and a view all link when there are more', fun
     $this->get('/')->assertSee('Program number 6')->assertDontSee('Program number 7')->assertSee('All programs')->assertSee('href="/programs"', false);
 
     $home->update(['data' => [...$home->data, 'limit' => 8]]);
-    $this->get('/')->assertSee('Program number 8')->assertDontSee('All programs');
+    $this->get('/')->assertSee('Program number 8')->assertSee('All programs');
 
     $home->update(['data' => [...$home->data, 'limit' => null]]);
     $this->get('/')->assertSee('Program number 8');
@@ -171,7 +171,10 @@ test('unpublished and unknown pages return 404', function (): void {
 
 test('hiding or deleting the nav and social settings keeps the pages up', function (): void {
     Section::query()->whereIn('type', ['nav', 'social'])->update(['is_visible' => false]);
-    $this->get('/')->assertOk()->assertDontSee('Contact Us')->assertDontSee('icon-facebook.svg');
+    $html = $this->get('/')->assertOk()->assertDontSee('icon-facebook.svg')->getContent();
+    $document = new DOMDocument;
+    @$document->loadHTML($html);
+    expect((new DOMXPath($document))->query('//nav//a'))->toHaveCount(0);
 
     Section::query()->whereIn('type', ['nav', 'social'])->delete();
     $this->get('/')->assertOk();
@@ -180,5 +183,5 @@ test('hiding or deleting the nav and social settings keeps the pages up', functi
 test('the seeder does not duplicate rows when run twice', function (): void {
     $this->seed(SectionSeeder::class);
 
-    expect(Page::query()->count())->toBe(5)->and(Section::query()->count())->toBe(25);
+    expect(Page::query()->count())->toBe(6)->and(Section::query()->count())->toBe(26);
 });

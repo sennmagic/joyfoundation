@@ -48,8 +48,8 @@
                 <img src="{{ asset('images/site/icon-search.svg') }}" alt="" class="size-4">
             </button>
 
-            <x-site.cta-button href="#" variant="solid" size="sm">
-                Donate
+            <x-site.cta-button :href="route('page', ['slug' => 'contact'])" variant="solid" size="sm">
+                Contact Us
                 <span class="flex size-7 items-center justify-center rounded-full bg-white/20">
                     <img src="{{ asset('images/site/icon-donate-header.svg') }}" alt="" class="size-3.5">
                 </span>

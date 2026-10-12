@@ -2,4 +2,5 @@
     <p class="rise-in mx-auto max-w-4xl text-xl leading-relaxed text-white sm:text-band">
         {{ $content['text'] }}
     </p>
+    <x-site.view-all type="text_band" :content="$content" class="mt-stack-sm" />
 </section>

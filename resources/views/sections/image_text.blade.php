@@ -37,12 +37,7 @@
                 @endforeach
             </div>
 
-            <x-site.cta-button href="#" variant="solid" size="sm" class="mt-stack-md">
-                {{ $content['cta_label'] }}
-                <span class="flex size-9 items-center justify-center rounded-full bg-white/20">
-                    <img src="{{ asset('images/site/icon-arrow-right.svg') }}" alt="" class="size-4">
-                </span>
-            </x-site.cta-button>
+            <x-site.view-all type="image_text" :content="$content" class="mt-stack-sm" />
         </div>
     </div>
 </section>

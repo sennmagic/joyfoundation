@@ -106,7 +106,7 @@ class SectionForm
                 TextInput::make('heading_prefix'),
                 TextInput::make('heading_highlight'),
                 self::lines('paragraphs'),
-                TextInput::make('cta_label')->required(),
+                TextInput::make('view_all_label')->default('View all')->label('Homepage button text'),
             ],
             'statements' => [
                 TextInput::make('eyebrow')->required(),
@@ -286,17 +286,17 @@ class SectionForm
             ->datalist(fn (): array => Page::query()->where('is_published', true)->orderBy('title')->pluck('slug')->map(fn (string $slug): string => $slug === 'home' ? '/' : "/{$slug}")->all());
     }
 
-    /** Lists show at most `limit` items; the rest live behind a "View all" link. */
+    /** List limits and the homepage-only "View all" button. */
     private static function listControls(): FormSection
     {
         return FormSection::make('How many to show')
-            ->description('Show the first few items here and send visitors to a full list for the rest.')
+            ->description('Limit the displayed items. View all buttons always appear on the homepage and are hidden on inside pages.')
             ->collapsed()
             ->columns(3)
             ->schema([
                 TextInput::make('limit')->integer()->minValue(0)->default(6)->label('Items to show')->helperText('Leave empty to show all'),
                 TextInput::make('view_all_label')->default('View all')->label('Button text'),
-                self::link('view_all_href', required: false)->label('Button link')->helperText('Shown only when there are more items than the limit'),
+                self::link('view_all_href', required: false)->label('Button link')->helperText('Homepage only; leave empty to use the section’s default page'),
             ]);
     }
 
