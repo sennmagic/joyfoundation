@@ -22,13 +22,13 @@ class PageController extends Controller
         ]);
     }
 
-    /** One shared layout renders any list item that has extra details. */
+    /** One shared layout renders each routable item and its full content. */
     public function item(string $slug, string $item): View
     {
         $page = $this->page($slug);
         $found = Section::pageItems($page)[$item] ?? null;
 
-        abort_if($found === null || Section::details($found) === '', 404);
+        abort_if($found === null, 404);
 
         return view('item', ['page' => $page, 'site' => $this->site(), 'item' => $found]);
     }

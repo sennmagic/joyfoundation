@@ -147,17 +147,17 @@ test('details are rendered as safe html', function (): void {
         ->assertSee('<h2>Heading</h2><p>Text <a>bad</a> <a href="https://example.org">good</a> <a>bad2</a></p>kept text', false)
         ->assertDontSee('onerror', false)->assertDontSee('onmouseover', false)->assertDontSee('alert(1)', false)->assertDontSee('javascript:', false)->assertDontSee('target=', false);
 
-    $this->get('/')->assertDontSee('/home/eye-care-initiatives"', false);
-    $this->get('/home/eye-care-initiatives')->assertNotFound();
+    $this->get('/')->assertSee('/home/eye-care-initiatives"', false);
+    $this->get('/home/eye-care-initiatives')->assertOk()->assertDontSee('data-item-details', false);
 });
 
-test('items without details have no link and no detail page', function (): void {
+test('programs without full copy still have an overview page and unknown items remain unavailable', function (): void {
     $grid = sourceOf('card_grid');
     $items = array_map(fn (array $item): array => [...$item, 'details' => '<p></p>'], $grid->data['items']);
     $grid->update(['data' => [...$grid->data, 'items' => $items]]);
 
-    $this->get('/')->assertDontSee('/home/free-medical-health-camps');
-    $this->get('/home/free-medical-health-camps')->assertNotFound();
+    $this->get('/')->assertSee('/home/free-medical-health-camps');
+    $this->get('/home/free-medical-health-camps')->assertOk()->assertDontSee('data-item-details', false);
     $this->get('/home/no-such-item')->assertNotFound();
     $this->get('/about/free-medical-health-camps')->assertNotFound();
 });

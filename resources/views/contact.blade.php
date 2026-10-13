@@ -94,6 +94,19 @@
                         <x-site.contact-details :contact="$site['contact'] ?? []" />
                     </aside>
                 </div>
+
+                @php
+                    $mapEmbed = $site['contact']['map_embed_url'] ?? '';
+                    $mapEmbed = is_string($mapEmbed) ? trim($mapEmbed) : '';
+                @endphp
+                @if (strlen($mapEmbed) <= 4096 && filter_var($mapEmbed, FILTER_VALIDATE_URL) && preg_match(\App\Models\Section::MAP_EMBED_URL_PATTERN, $mapEmbed))
+                    <section aria-labelledby="contact-map-heading" class="mt-stack-lg border-t border-navy/15 pt-stack-md">
+                        <h2 id="contact-map-heading" class="font-heading text-2xl font-semibold">Find us</h2>
+                        <iframe data-contact-map src="{{ $mapEmbed }}" title="JOY Foundation office location on Google Maps"
+                            class="mt-stack-sm h-80 w-full rounded-md border-0 sm:h-96" width="1200" height="384"
+                            loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+                    </section>
+                @endif
             </div>
         </section>
 

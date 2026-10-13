@@ -103,6 +103,13 @@ class SectionForm
                         Textarea::make('hours')->label('Opening hours')->rows(3)->maxLength(500),
                         TextInput::make('map_url')->label('Directions / map link')->url()->rules(['url:http,https'])->maxLength(2048)
                             ->helperText('Paste an https:// or http:// map link. No embed code is needed.')->columnSpanFull(),
+                        TextInput::make('whatsapp_number')->label('WhatsApp number')->tel()->regex(Section::WHATSAPP_NUMBER_PATTERN)->maxLength(16)
+                            ->helperText('Include the country code, e.g. +977 followed by your number, without spaces. Leave empty to hide the floating button.'),
+                        Textarea::make('whatsapp_message')->label('WhatsApp opening message')->rows(2)->maxLength(500)
+                            ->helperText('Optional message visitors can review before sending.'),
+                        TextInput::make('map_embed_url')->label('Google Maps embed URL')->url()->rules(['url:https'])
+                            ->regex(Section::MAP_EMBED_URL_PATTERN)->maxLength(4096)->columnSpanFull()
+                            ->helperText('Google Maps → Share → Embed a map → Copy HTML. Paste only the URL inside src="...", starting https://www.google.com/maps/embed?pb=. Leave empty to hide the map.'),
                     ]),
             ],
             'hero' => [
@@ -360,12 +367,12 @@ class SectionForm
             ->addActionLabel('Add item');
     }
 
-    /** Extra copy that gives the item its own detail page (shared layout). */
+    /** Full copy is edited independently of the short listing description. */
     private static function details(): RichEditor
     {
         return RichEditor::make('details')
             ->label('Detail page content')
-            ->helperText('When filled, the item gets a "Learn More" link to its own page.')
+            ->helperText('Write the full article here; the short description stays on the cards. Programs, community initiatives and achievements always have their own page.')
             ->columnSpanFull();
     }
 

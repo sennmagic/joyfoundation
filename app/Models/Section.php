@@ -73,6 +73,10 @@ class Section extends Model
     /** Site-wide settings stored as rows with no page. */
     public const SETTINGS = ['nav', 'social', 'contact'];
 
+    public const WHATSAPP_NUMBER_PATTERN = '/\A\+?[1-9][0-9]{7,14}\z/';
+
+    public const MAP_EMBED_URL_PATTERN = '~\Ahttps://www\.google\.com/maps/embed\?pb=[^\s<>"#]+\z~';
+
     /**
      * Every item this list section can show: its own, or, when it points at a
      * source section on another page, the source's items ticked "Show on homepage".
@@ -92,7 +96,8 @@ class Section extends Model
             return array_values($this->data[$key] ?? []);
         }
 
-        $source = self::query()->whereKey($sourceId)->where('type', $this->type)->first();
+        $source = self::query()->whereKey($sourceId)->where('type', $this->type)->visible()
+            ->whereHas('page', fn (Builder $query) => $query->where('is_published', true))->first();
 
         return array_values(array_filter($source->data[$key] ?? [], fn (array $item): bool => ! empty($item['featured'])));
     }
@@ -119,25 +124,31 @@ class Section extends Model
     }
 
     /**
-     * Every list item on a page keyed by a URL slug that is unique on that page
-     * (duplicate titles get -2, -3 …; a title with no slug-able characters becomes "item").
+     * Routable items keyed by a unique slug. Programs, initiatives and achievements
+     * have pages even before full copy is entered; other items need a detail body.
+     * All items reserve their slug so adding detail copy does not change other URLs.
      *
      * @return array<string, array<string, mixed>>
      */
     public static function pageItems(Page $page): array
     {
         $items = [];
+        $slugs = [];
 
         foreach ($page->sections()->visible()->whereIn('type', self::LIST_TYPES)->get() as $section) {
             foreach ($section->items() as $item) {
                 $base = Str::slug(self::itemTitle($item)) ?: 'item';
                 $slug = $base;
 
-                for ($n = 2; isset($items[$slug]); $n++) {
+                for ($n = 2; isset($slugs[$slug]); $n++) {
                     $slug = "{$base}-{$n}";
                 }
 
-                $items[$slug] = $item;
+                $slugs[$slug] = true;
+
+                if (in_array($section->type, ['card_grid', 'feature_list', 'feature_cards'], true) || self::details($item) !== '') {
+                    $items[$slug] = $item;
+                }
             }
         }
 
@@ -145,16 +156,12 @@ class Section extends Model
     }
 
     /**
-     * The shared detail page for an item, or '' when it has no extra description.
+     * The shared detail page for a routable item, or '' when it is not published.
      *
      * @param  array<string, mixed>  $item
      */
     public static function itemUrl(Page $page, array $item): string
     {
-        if (self::details($item) === '') {
-            return '';
-        }
-
         $slug = array_search($item, self::pageItems($page), true);
 
         return $slug === false ? '' : route('page.item', [$page->slug, $slug]);

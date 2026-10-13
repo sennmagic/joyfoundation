@@ -51,6 +51,7 @@ class ContactPageTest extends TestCase
             'intro' => 'Come say hello to our team.', 'email' => 'hello@example.org',
             'phone' => '+977 (1) 555-0123', 'address' => "Test office\nKathmandu",
             'hours' => 'Sunday to Friday, 10am–5pm', 'map_url' => 'https://example.org/directions',
+            'whatsapp_number' => null, 'whatsapp_message' => null, 'map_embed_url' => null,
         ];
 
         Livewire::test(EditSection::class, ['record' => $contact->getRouteKey()])

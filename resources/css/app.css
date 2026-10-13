@@ -38,6 +38,7 @@ body {
     --------------------------------------------------------------- */
     --color-navy: #1a1f2e; /* headings, dark section backgrounds */
     --color-primary: #f08348; /* brand orange — CTAs, accents, highlights */
+    --color-whatsapp: #25d366; /* WhatsApp contact control */
     --color-primary-ink: var(--color-primary); /* keep the original brand orange across shared components */
     --color-body: #4f5260; /* higher-contrast paragraph copy */
     --color-cream: #fdf6ec; /* tinted section backgrounds */
